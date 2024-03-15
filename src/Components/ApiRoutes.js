@@ -1,4 +1,5 @@
-const host = 'http://localhost:5000/api';
+// const host = 'http://localhost:5000/api';
+const host = 'https://socialmediaappwithchat-backend.onrender.com/api';
 
 const verificationRoute = `${host}/user/user-verification`;
 const signUpRoute = `${host}/user/register`;
