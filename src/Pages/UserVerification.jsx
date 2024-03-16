@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { verificationRoute } from '../Components/ApiRoutes';
 import { Link } from 'react-router-dom';
 import { GoVerified } from 'react-icons/go';
+import axiosInstance from '../hooks/axiosInstance';
 
 const UserVerification = () => {
   const [loading, setLoading] = useState(true);
@@ -14,9 +15,13 @@ const UserVerification = () => {
     const userId = searchParams.get('userId');
     const token = searchParams.get('token');
     try {
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${verificationRoute}/${userId}/${token}`
       );
+
+      // const { data } = await axios.post(
+      //   `${verificationRoute}/${userId}/${token}`
+      // );
       setLoading(false);
 
       if (data.success === true) {

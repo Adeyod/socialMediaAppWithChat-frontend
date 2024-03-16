@@ -1,11 +1,12 @@
 import { Button } from '@chakra-ui/react';
 import { useSetRecoilState } from 'recoil';
 import userAtom from '../atoms/userAtom';
-import axios from 'axios';
+// import axios from 'axios';
 import { logoutRoute } from './ApiRoutes';
 import useShowToast from '../hooks/useShowToast';
 import { FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../hooks/axiosInstance';
 
 const LogoutButton = () => {
   const navigate = useNavigate();
@@ -13,7 +14,8 @@ const LogoutButton = () => {
   const showToast = useShowToast();
   const handleLogout = async () => {
     try {
-      const { data } = await axios.post(logoutRoute);
+      const { data } = await axiosInstance.post(logoutRoute);
+      // const { data } = await axios.post(logoutRoute);
 
       if (data.success === false) {
         showToast('Error', data.message, 'error');

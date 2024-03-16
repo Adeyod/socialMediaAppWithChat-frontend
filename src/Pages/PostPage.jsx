@@ -14,13 +14,14 @@ import Comment from '../Components/Comment';
 import useGetUserProfile from '../hooks/useGetUserProfile';
 import useShowToast from '../hooks/useShowToast';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { deletePostRoute, getPostRoute } from '../Components/ApiRoutes';
 import { formatDistanceToNow } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import userAtom from '../atoms/userAtom';
 import { DeleteIcon } from '@chakra-ui/icons';
 import postsAtom from '../atoms/postsAtom';
+import axiosInstance from '../hooks/axiosInstance';
 
 const PostPage = () => {
   const { user, loading } = useGetUserProfile();
@@ -38,9 +39,12 @@ const PostPage = () => {
         return;
       }
 
-      const { data } = await axios.delete(
+      const { data } = await axiosInstance.delete(
         `${deletePostRoute}/${currentPost?.currentPost?._id}`
       );
+      // const { data } = await axios.delete(
+      //   `${deletePostRoute}/${currentPost?.currentPost?._id}`
+      // );
 
       if (data.success === false) {
         showToast('Error', data.message, 'error');
@@ -60,7 +64,8 @@ const PostPage = () => {
     const getPost = async () => {
       setPosts([]);
       try {
-        const { data } = await axios.get(`${getPostRoute}/${pid}`); // /:username/post/:pid
+        const { data } = await axiosInstance.get(`${getPostRoute}/${pid}`); // /:username/post/:pid
+        // const { data } = await axios.get(`${getPostRoute}/${pid}`); // /:username/post/:pid
         if (data.success === false) {
           showToast('Error', data.message, 'error');
           return;

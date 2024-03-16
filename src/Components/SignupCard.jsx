@@ -22,6 +22,7 @@ import authScreenAtom from '../atoms/authAtom';
 import { signUpRoute } from './ApiRoutes';
 import axios from 'axios';
 import useShowToast from '../hooks/useShowToast';
+import axiosInstance from '../hooks/axiosInstance';
 // import userAtom from '../atoms/userAtom';
 
 axios.defaults.withCredentials = true;
@@ -42,26 +43,9 @@ export default function SignupCard() {
   // const setUser = useSetRecoilState(userAtom);
 
   const handleSignup = async () => {
-    // try {
-    //   const res = await fetch('/api/users/signup', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(inputs),
-    //   });
-    //   const data = await res.json();
-    //   if (data.error) {
-    //     showToast('Error', data.error, 'error');
-    //     return;
-    //   }
-    //   localStorage.setItem('user-threads', JSON.stringify(data));
-    //   setUser(data);
-    // } catch (error) {
-    //   showToast('Error', error, 'error');
-    // }
     try {
-      const { data } = await axios.post(signUpRoute, inputs);
+      const { data } = await axiosInstance.post(signUpRoute, inputs);
+      // const { data } = await axios.post(signUpRoute, inputs);
       if (data.success === false) {
         showToast('Error', data.message, 'error');
         return;

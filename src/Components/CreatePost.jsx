@@ -24,10 +24,11 @@ import usePreviewImg from '../hooks/usePreviewImg';
 import { BsFillImageFill } from 'react-icons/bs';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import userAtom from '../atoms/userAtom';
-import axios from 'axios';
+// import axios from 'axios';
 import { CreatePostRoute } from './ApiRoutes';
 import postsAtom from '../atoms/postsAtom';
 import { useParams } from 'react-router-dom';
+import axiosInstance from '../hooks/axiosInstance';
 
 const MAX_CHAR = 500;
 
@@ -70,7 +71,8 @@ const CreatePost = () => {
     }
     try {
       setLoading(true);
-      const { data } = await axios.post(`${CreatePostRoute}`, formData);
+      const { data } = await axiosInstance.post(`${CreatePostRoute}`, formData);
+      // const { data } = await axios.post(`${CreatePostRoute}`, formData);
       console.log(data);
       if (data.success === false) {
         showToast('Error', data.message, 'error');

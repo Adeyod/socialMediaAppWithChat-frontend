@@ -16,9 +16,10 @@ import userAtom from '../atoms/userAtom';
 import usePreviewImg from '../hooks/usePreviewImg';
 import useShowToast from '../hooks/useShowToast';
 import { updateUserRoute } from '../Components/ApiRoutes';
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../hooks/axiosInstance';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 const UpdateProfilePage = () => {
   const [user, setUser] = useRecoilState(userAtom);
   const [inputs, setInputs] = useState({
@@ -52,10 +53,15 @@ const UpdateProfilePage = () => {
       formData.append('bio', inputs.bio);
       formData.append('password', inputs.password);
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${updateUserRoute}/${user.user._id}`,
         formData
       );
+
+      // const { data } = await axios.put(
+      //   `${updateUserRoute}/${user.user._id}`,
+      //   formData
+      // );
 
       if (data.success === false) {
         showToast('Error', data.message, 'error');

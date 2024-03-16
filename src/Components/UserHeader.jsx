@@ -20,8 +20,9 @@ import userAtom from '../atoms/userAtom';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useShowToast from '../hooks/useShowToast';
-import axios from 'axios';
+// import axios from 'axios';
 import { followUnFollowRoute } from './ApiRoutes';
+import axiosInstance from '../hooks/axiosInstance';
 
 const UserHeader = ({ user }) => {
   const navigate = useNavigate();
@@ -63,9 +64,12 @@ const UserHeader = ({ user }) => {
 
     setUpdating(true);
     try {
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${followUnFollowRoute}/${user.user._id}`
       );
+      // const { data } = await axios.post(
+      //   `${followUnFollowRoute}/${user.user._id}`
+      // );
       console.log(data);
       if (data.success === false) {
         showToast('Error', data.message, 'error');

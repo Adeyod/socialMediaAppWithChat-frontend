@@ -2,23 +2,24 @@ import { Link } from 'react-router-dom';
 import { Button, Flex, Spinner } from '@chakra-ui/react';
 import useShowToast from '../hooks/useShowToast';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { getFeedPostsRoute } from '../Components/ApiRoutes';
 import Post from '../Components/Post';
 import { useRecoilState } from 'recoil';
 import postsAtom from '../atoms/postsAtom';
+import axiosInstance from '../hooks/axiosInstance';
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useRecoilState(postsAtom);
   const showToast = useShowToast();
-  console.log('posts:', posts);
 
   useEffect(() => {
     const getFeedPosts = async () => {
       setLoading(true);
       setPosts([]);
       try {
-        const { data } = await axios.get(getFeedPostsRoute);
+        const { data } = await axiosInstance.get(getFeedPostsRoute);
+        // const { data } = await axios.get(getFeedPostsRoute);
 
         if (data.success === false) {
           showToast('Error', data.message, 'error');

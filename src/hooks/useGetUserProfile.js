@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useShowToast from './useShowToast';
-import axios from 'axios';
+// import axios from 'axios';
 import { getUserRoute } from '../Components/ApiRoutes';
+import axiosInstance from './axiosInstance';
 
 const useGetUserProfile = () => {
   const [user, setUser] = useState(null);
@@ -14,7 +15,10 @@ const useGetUserProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const { data } = await axios.get(`${getUserRoute}/${encodedUsername}`);
+        const { data } = await axiosInstance.get(
+          `${getUserRoute}/${encodedUsername}`
+        );
+        // const { data } = await axios.get(`${getUserRoute}/${encodedUsername}`);
         console.log(data);
 
         if (data.success === false) {

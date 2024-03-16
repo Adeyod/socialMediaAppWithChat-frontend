@@ -3,13 +3,14 @@ import UserHeader from '../Components/UserHeader';
 import UserPost from '../Components/UserPost';
 import { useParams } from 'react-router-dom';
 import { getPostsRoute, getUserRoute } from '../Components/ApiRoutes';
-import axios from 'axios';
+// import axios from 'axios';
 import useShowToast from '../hooks/useShowToast';
 import { Flex, Spinner } from '@chakra-ui/react';
 import Post from '../Components/Post';
 import useGetUserProfile from '../hooks/useGetUserProfile';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import postsAtom from '../atoms/postsAtom';
+import axiosInstance from '../hooks/axiosInstance';
 
 const UserPage = () => {
   // const [user, setUser] = useState(null);
@@ -24,27 +25,13 @@ const UserPage = () => {
   console.log(posts);
 
   useEffect(() => {
-    // const getUser = async () => {
-    //   try {
-    //     const { data } = await axios.get(`${getUserRoute}/${encodedUsername}`);
-    //     console.log(data);
-
-    //     if (data.success === false) {
-    //       showToast('Error', data.message, 'error');
-    //       return;
-    //     }
-    //     setUser(data);
-    //   } catch (error) {
-    //     showToast('Error', error, 'error');
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-
     const getPosts = async () => {
       setFetchingPosts(true);
       try {
-        const { data } = await axios.get(`${getPostsRoute}/${encodedUsername}`);
+        const { data } = await axiosInstance.get(
+          `${getPostsRoute}/${encodedUsername}`
+        );
+        // const { data } = await axios.get(`${getPostsRoute}/${encodedUsername}`);
         if (data.success === false) {
           showToast('Error', data.message, 'error');
           return;
