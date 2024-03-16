@@ -46,7 +46,15 @@ export default function LoginCard() {
         showToast('Error', data.message, 'error');
         return;
       }
-      // 04:06:46
+
+      if (
+        data.message ===
+          'Please verify your email with the link sent to your email address' ||
+        data.message === 'Please verify your email address'
+      ) {
+        showToast('Error', 'Please verify your email address', 'error');
+        return;
+      }
 
       showToast('Success', data.message, 'success');
       localStorage.setItem('user-threads', JSON.stringify(data));
