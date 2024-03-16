@@ -22,7 +22,7 @@ import authScreenAtom from '../atoms/authAtom';
 import { signUpRoute } from './ApiRoutes';
 import axios from 'axios';
 import useShowToast from '../hooks/useShowToast';
-import axiosInstance from '../hooks/axiosInstance';
+// import axiosInstance from '../hooks/axiosInstance';
 // import userAtom from '../atoms/userAtom';
 
 axios.defaults.withCredentials = true;
@@ -44,8 +44,8 @@ export default function SignupCard() {
 
   const handleSignup = async () => {
     try {
-      const { data } = await axiosInstance.post(signUpRoute, inputs);
-      // const { data } = await axios.post(signUpRoute, inputs);
+      // const { data } = await axiosInstance.post(signUpRoute, inputs);
+      const { data } = await axios.post(signUpRoute, inputs);
       if (data.success === false) {
         showToast('Error', data.message, 'error');
         return;

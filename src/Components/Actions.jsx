@@ -21,7 +21,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import userAtom from '../atoms/userAtom';
 import { handleLikeAndUnlikePostRoute, handleReplyRoute } from './ApiRoutes';
 import postsAtom from '../atoms/postsAtom';
-import axiosInstance from '../hooks/axiosInstance';
+// import axiosInstance from '../hooks/axiosInstance';
+
+axios.defaults.withCredentials = true;
 const Actions = ({ post }) => {
   const user = useRecoilValue(userAtom);
   const [liked, setLiked] = useState(post?.likes?.includes(user?.user._id));
@@ -45,12 +47,13 @@ const Actions = ({ post }) => {
     }
     setIsLiking(true);
     try {
-      const { data } = await axiosInstance.put(
-        `${handleLikeAndUnlikePostRoute}/${post?._id}`
-      );
-      // const { data } = await axios.put(
+      // const { data } = await axiosInstance.put(
       //   `${handleLikeAndUnlikePostRoute}/${post?._id}`
       // );
+
+      const { data } = await axios.put(
+        `${handleLikeAndUnlikePostRoute}/${post?._id}`
+      );
       if (data.success === false) {
         showToast('Error', data.message, 'error');
         return;

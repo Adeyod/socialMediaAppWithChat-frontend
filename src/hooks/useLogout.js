@@ -1,11 +1,12 @@
-// import axios from 'axios';
+import axios from 'axios';
 import { logoutRoute } from '../Components/ApiRoutes';
 import useShowToast from './useShowToast';
 import { useSetRecoilState } from 'recoil';
 import userAtom from '../atoms/userAtom';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from './axiosInstance';
+// import axiosInstance from './axiosInstance';
 
+axios.defaults.withCredentials = true;
 const useLogout = () => {
   const showToast = useShowToast();
   const setUser = useSetRecoilState(userAtom);
@@ -13,8 +14,8 @@ const useLogout = () => {
 
   const logout = async () => {
     try {
-      const { data } = await axiosInstance.post(logoutRoute);
-      // const { data } = await axios.post(logoutRoute);
+      // const { data } = await axiosInstance.post(logoutRoute);
+      const { data } = await axios.post(logoutRoute);
 
       if (data.success === false) {
         showToast('Error', data.message, 'error');

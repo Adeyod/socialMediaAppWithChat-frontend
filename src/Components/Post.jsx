@@ -16,15 +16,16 @@ import {
   MenuItem,
 } from '@chakra-ui/react';
 import useShowToast from '../hooks/useShowToast';
-// import axios from 'axios';
+import axios from 'axios';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { deletePostRoute, getUserRoute } from './ApiRoutes';
 import { formatDistanceToNow } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import userAtom from '../atoms/userAtom';
 import postsAtom from '../atoms/postsAtom';
-import axiosInstance from '../hooks/axiosInstance';
+// import axiosInstance from '../hooks/axiosInstance';
 
+axios.defaults.withCredentials = true;
 const Post = ({ post, postedBy }) => {
   const [user, setUser] = useState(null);
   const currentUser = useRecoilValue(userAtom);
@@ -50,8 +51,8 @@ const Post = ({ post, postedBy }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const { data } = await axiosInstance.get(`${getUserRoute}/${postedBy}`);
-        // const { data } = await axios.get(`${getUserRoute}/${postedBy}`);
+        // const { data } = await axiosInstance.get(`${getUserRoute}/${postedBy}`);
+        const { data } = await axios.get(`${getUserRoute}/${postedBy}`);
         if (data.success === false) {
           showToast('Error', data.message, 'error');
           return;
@@ -77,10 +78,11 @@ const Post = ({ post, postedBy }) => {
         return;
       }
 
-      const { data } = await axiosInstance.delete(
-        `${deletePostRoute}/${post._id}`
-      );
-      // const { data } = await axios.delete(`${deletePostRoute}/${post._id}`);
+      // const { data } = await axiosInstance.delete(
+      //   `${deletePostRoute}/${post._id}`
+      // );
+
+      const { data } = await axios.delete(`${deletePostRoute}/${post._id}`);
 
       if (data.success === false) {
         showToast('Error', data.message, 'error');

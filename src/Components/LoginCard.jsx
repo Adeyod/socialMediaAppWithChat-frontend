@@ -17,12 +17,13 @@ import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useSetRecoilState } from 'recoil';
 import authScreenAtom from '../atoms/authAtom';
-// import axios from 'axios';
+import axios from 'axios';
 import { loginRoute } from './ApiRoutes';
 import useShowToast from '../hooks/useShowToast';
 import userAtom from '../atoms/userAtom';
-import axiosInstance from '../hooks/axiosInstance';
+// import axiosInstance from '../hooks/axiosInstance';
 
+axios.defaults.withCredentials = true;
 export default function LoginCard() {
   const [showPassword, setShowPassword] = useState(false);
   const setAuthScreen = useSetRecoilState(authScreenAtom);
@@ -38,8 +39,8 @@ export default function LoginCard() {
     setLoading(true);
 
     try {
-      const { data } = await axiosInstance.post(loginRoute, inputs);
-      // const { data } = await axios.post(loginRoute, inputs);
+      // const { data } = await axiosInstance.post(loginRoute, inputs);
+      const { data } = await axios.post(loginRoute, inputs);
       // setLoading(false);
       if (data.success === false) {
         showToast('Error', data.message, 'error');
