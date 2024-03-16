@@ -20,7 +20,7 @@ const UserVerification = () => {
       //   `${verificationRoute}/${userId}/${token}`
       // );
 
-      const { data } = await axios.post(
+      const { data } = await axios.get(
         `${verificationRoute}/${userId}/${token}`
       );
       setLoading(false);
