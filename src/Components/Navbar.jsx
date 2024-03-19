@@ -5,6 +5,7 @@ import profilePicture from '../../public/images/profile-pics.jpeg';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { AiFillHome } from 'react-icons/ai';
 import { RxAvatar } from 'react-icons/rx';
+import { BsFillChatQuoteFill } from 'react-icons/bs';
 import { Button, Flex, Image, Link, useColorMode } from '@chakra-ui/react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import userAtom from '../atoms/userAtom';
@@ -51,6 +52,10 @@ const Navbar = () => {
         <Flex alignItems={'center'} gap={4}>
           <Link as={RouterLink} to={`/${user.user.username}`}>
             <RxAvatar size={24} />
+          </Link>
+
+          <Link as={RouterLink} to={`/chat`}>
+            <BsFillChatQuoteFill size={20} />
           </Link>
 
           <Button size={'xs'} onClick={logout}>

@@ -1,5 +1,7 @@
-// const host = 'http://localhost:5000/api';
 const host = 'https://socialmediaappwithchat-backend.onrender.com/api';
+const socketRoute = 'https://socialmediaappwithchat-backend.onrender.com';
+// const host = 'http://localhost:5000/api';
+// const socketRoute = 'http://localhost:5000'
 
 const verificationRoute = `${host}/user/user-verification`;
 const signUpRoute = `${host}/user/register`;
@@ -15,8 +17,16 @@ const handleReplyRoute = `${host}/post/reply`;
 const getPostsRoute = `${host}/post/user`;
 const deletePostRoute = `${host}/post/`;
 const getPostRoute = `${host}/post/`;
+const getConversationsRoute = `${host}/messages/conversations`;
+const getMessagesRoute = `${host}/messages`;
+const sendMessageRoute = `${host}/messages`;
+const searchUserRoute = `${host}/user/profile`;
 
 export {
+  searchUserRoute,
+  sendMessageRoute,
+  getMessagesRoute,
+  getConversationsRoute,
   getPostRoute,
   deletePostRoute,
   getPostsRoute,
@@ -31,4 +41,5 @@ export {
   getUserRoute,
   followUnFollowRoute,
   CreatePostRoute,
+  socketRoute,
 };
