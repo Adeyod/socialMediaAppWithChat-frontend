@@ -41,7 +41,7 @@ export default function LoginCard() {
     try {
       // const { data } = await axiosInstance.post(loginRoute, inputs);
       const { data } = await axios.post(loginRoute, inputs);
-      // setLoading(false);
+
       if (data.success === false) {
         showToast('Error', data.message, 'error');
         return;

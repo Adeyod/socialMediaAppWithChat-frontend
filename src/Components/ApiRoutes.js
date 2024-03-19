@@ -1,7 +1,8 @@
 const host = 'https://socialmediaappwithchat-backend.onrender.com/api';
 const socketRoute = 'https://socialmediaappwithchat-backend.onrender.com';
+
 // const host = 'http://localhost:5000/api';
-// const socketRoute = 'http://localhost:5000'
+// const socketRoute = 'http://localhost:5000';
 
 const verificationRoute = `${host}/user/user-verification`;
 const signUpRoute = `${host}/user/register`;
