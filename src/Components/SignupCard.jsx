@@ -29,6 +29,7 @@ axios.defaults.withCredentials = true;
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const setAuthScreen = useSetRecoilState(authScreenAtom);
   const [inputs, setInputs] = useState({
     name: '',
@@ -43,6 +44,7 @@ export default function SignupCard() {
   // const setUser = useSetRecoilState(userAtom);
 
   const handleSignup = async () => {
+    setLoading(true);
     try {
       // const { data } = await axiosInstance.post(signUpRoute, inputs);
       const { data } = await axios.post(signUpRoute, inputs);
@@ -58,6 +60,8 @@ export default function SignupCard() {
       console.log(error);
       showToast('Error', error.message, 'error');
       return;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -170,6 +174,7 @@ export default function SignupCard() {
                   bg: useColorModeValue('gray.700', 'gray.800'),
                 }}
                 onClick={handleSignup}
+                isLoading={loading}
               >
                 Sign up
               </Button>
